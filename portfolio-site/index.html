@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William O'Connell — Mechatronics Engineering</title>
+<meta name="description" content="Portfolio of William O'Connell, Mechatronics Engineering Student.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #15191D;
+    --panel: #1B2025;
+    --panel-line: #2A3138;
+    --ink: #E8EAED;
+    --ink-dim: #9AA3AC;
+    --muted: #5C6670;
+    --blue: #4FA8E0;
+    --amber: #E8A33D;
+    --radius: 2px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--panel-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--panel-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: -1px -1px;
+    background-attachment: fixed;
+  }
+
+  a { color:inherit; }
+
+  ::selection { background:var(--blue); color:#0B0E11; }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .wrap{ max-width: 1040px; margin:0 auto; padding: 0 24px; }
+
+  /* ---------- crop marks ---------- */
+  .crop{ position:fixed; width:18px; height:18px; pointer-events:none; opacity:.5; z-index:5; }
+  .crop::before, .crop::after{ content:''; position:absolute; background:var(--muted); }
+  .crop::before{ width:100%; height:1px; top:50%; }
+  .crop::after{ width:1px; height:100%; left:50%; }
+  .crop.tl{ top:16px; left:16px; }
+  .crop.tr{ top:16px; right:16px; }
+  .crop.bl{ bottom:16px; left:16px; }
+  .crop.br{ bottom:16px; right:16px; }
+
+  /* ---------- header / nav ---------- */
+  header{
+    position: sticky; top:0; z-index:10;
+    background: rgba(21,25,29,0.88);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-id{
+    font-family:var(--mono); font-size:13px; color:var(--ink-dim);
+    letter-spacing: 0.02em;
+  }
+  .nav-id b{ color:var(--ink); font-weight:600; }
+  .nav-links{ display:flex; gap:28px; list-style:none; }
+  .nav-links a{
+    font-family:var(--mono); font-size:12px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-dim); text-decoration:none;
+    transition: color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--blue); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 96px 0 80px;
+    position:relative;
+  }
+  .hero-tag{
+    font-family:var(--mono); font-size:12px; color:var(--amber);
+    letter-spacing:0.12em; text-transform:uppercase;
+    display:flex; align-items:center; gap:10px; margin-bottom:24px;
+  }
+  .hero-tag::before{
+    content:''; width:8px; height:8px; background:var(--amber);
+    display:inline-block; transform: rotate(45deg);
+  }
+  h1{
+    font-family:var(--display); font-weight:700;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.04; letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  h1 .last{ color:var(--blue); }
+  .hero-role{
+    font-family:var(--mono); font-size: clamp(14px,2vw,17px);
+    color:var(--ink-dim); margin-top:18px; letter-spacing:0.02em;
+  }
+  .hero-bio{
+    max-width: 640px; margin-top:28px; font-size:16px; color:var(--ink-dim);
+  }
+  .hero-bio strong{ color:var(--ink); font-weight:600; }
+
+  .hero-actions{ display:flex; gap:14px; margin-top:40px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+    padding:13px 22px; border-radius:var(--radius);
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition: all .15s ease; border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--blue); color:#0B0E11; font-weight:600; }
+  .btn-primary:hover{ background:#6BB8E8; }
+  .btn-ghost{ border-color:var(--panel-line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--blue); color:var(--blue); }
+
+  /* ---------- section labels ---------- */
+  .section{ padding: 64px 0; border-top:1px solid var(--panel-line); }
+  .section-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:44px;
+  }
+  .section-num{
+    font-family:var(--mono); font-size:13px; color:var(--muted);
+  }
+  .section-title{
+    font-family:var(--display); font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight:600; letter-spacing:-0.01em;
+  }
+  .section-line{ flex:1; height:1px; background:var(--panel-line); }
+
+  /* ---------- projects ---------- */
+  .project{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:var(--radius);
+    margin-bottom:24px;
+    overflow:hidden;
+  }
+  .project-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding: 28px 28px 0;
+    gap: 16px; flex-wrap:wrap;
+  }
+  .project-title{
+    font-family:var(--display); font-size:1.4rem; font-weight:600;
+  }
+  .status{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.06em;
+    text-transform:uppercase; padding:5px 10px; border-radius:var(--radius);
+    white-space:nowrap; border:1px solid;
+  }
+  .status.complete{ color:var(--blue); border-color: rgba(79,168,224,0.4); background: rgba(79,168,224,0.08); }
+  .status.progress{ color:var(--amber); border-color: rgba(232,163,61,0.4); background: rgba(232,163,61,0.08); }
+
+  .project-desc{
+    padding: 14px 28px 0; color:var(--ink-dim); max-width:680px; font-size:15px;
+  }
+
+  .specs{
+    display:flex; gap:0; flex-wrap:wrap;
+    margin: 24px 28px 0;
+    border-top:1px dashed var(--panel-line);
+  }
+  .spec{
+    flex:1; min-width:140px;
+    padding: 16px 0 16px 0;
+    border-right:1px dashed var(--panel-line);
+    padding-left: 0;
+  }
+  .spec:first-child{ padding-left:0; }
+  .spec + .spec{ padding-left:20px; }
+  .spec:last-child{ border-right:none; }
+  .spec-val{
+    font-family:var(--mono); font-size:1.3rem; color:var(--ink); font-weight:500;
+  }
+  .spec-label{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.06em; margin-top:4px;
+  }
+
+  .project-foot{
+    padding: 22px 28px 28px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .project-link{
+    font-family:var(--mono); font-size:13px; color:var(--blue);
+    text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+    border-bottom: 1px solid transparent;
+  }
+  .project-link:hover{ border-color:var(--blue); }
+  .project-link.disabled{
+    color:var(--muted); cursor:default;
+  }
+  .project-link svg{ width:13px; height:13px; }
+
+  /* ---------- background ---------- */
+  .bg-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap: 0 40px;
+  }
+  .bg-col-label{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--amber); margin-bottom:18px;
+    padding-bottom:10px; border-bottom:1px solid var(--panel-line);
+  }
+  .bg-entry{
+    padding: 16px 0; border-bottom:1px dashed var(--panel-line);
+  }
+  .bg-entry:last-child{ border-bottom:none; }
+  .bg-entry-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:12px; flex-wrap:wrap;
+  }
+  .bg-entry-title{
+    font-family:var(--display); font-size:1rem; font-weight:600; color:var(--ink);
+  }
+  .bg-entry-date{
+    font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap;
+  }
+  .bg-entry-sub{
+    font-family:var(--body); font-size:13px; color:var(--ink-dim); margin-top:4px;
+  }
+  .bg-entry-detail{
+    font-family:var(--body); font-size:13px; color:var(--ink-dim); margin-top:6px;
+    line-height:1.5;
+  }
+
+  @media (max-width:560px){
+    .bg-grid{ grid-template-columns:1fr; gap:32px 0; }
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    border:1px solid var(--panel-line); border-radius:var(--radius);
+    background:var(--panel); overflow:hidden;
+  }
+  .skill-row{
+    display:flex; align-items:center; gap:24px;
+    padding:16px 24px; border-bottom:1px dashed var(--panel-line);
+    flex-wrap:wrap;
+  }
+  .skill-row:last-child{ border-bottom:none; }
+  .skill-label{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.08em;
+    width:120px; flex-shrink:0;
+  }
+  .skill-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{
+    font-family:var(--mono); font-size:13px; color:var(--ink);
+    background:rgba(79,168,224,0.08); border:1px solid rgba(79,168,224,0.3);
+    padding:5px 12px; border-radius:var(--radius);
+  }
+
+  /* ---------- tech details ---------- */
+  .tech-details{
+    padding: 18px 28px 0; max-width:720px;
+  }
+  .tech-details p{
+    font-size:14px; color:var(--ink-dim); line-height:1.7;
+  }
+  .tech-tags{
+    display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;
+  }
+  .tech-tag{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    background:rgba(232,163,61,0.08); border:1px solid rgba(232,163,61,0.3);
+    padding:4px 10px; border-radius:var(--radius);
+    text-transform:uppercase; letter-spacing:0.04em;
+  }
+
+  /* ---------- gallery ---------- */
+  .gallery{
+    display:grid; grid-template-columns:1fr 1fr; gap:2px;
+    background:var(--panel-line); border-top:1px solid var(--panel-line);
+  }
+  .gallery-item{
+    background:#0B0E11; overflow:hidden; aspect-ratio: 4/3;
+  }
+  .gallery-item img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .gallery-item-wide{ aspect-ratio: 16/9; }
+  .gallery-item video{
+    width:100%; height:100%; object-fit:cover; display:block; background:#000;
+  }
+  @media (max-width:560px){
+    .gallery{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- contact ---------- */
+  .contact-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap:1px;
+    background:var(--panel-line); border:1px solid var(--panel-line);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  .contact-cell{
+    background:var(--panel); padding:28px;
+  }
+  .contact-label{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--muted); margin-bottom:10px;
+  }
+  .contact-value{
+    font-family:var(--mono); font-size:16px; color:var(--ink);
+    text-decoration:none; word-break:break-all;
+  }
+  .contact-value.link:hover{ color:var(--blue); }
+  .contact-value.pending{ color:var(--muted); font-style:italic; }
+
+  @media (max-width:560px){
+    .contact-grid{ grid-template-columns:1fr; }
+    .nav-links{ gap:16px; }
+    .specs{ flex-direction:column; }
+    .spec{ border-right:none; border-bottom:1px dashed var(--panel-line); padding-left:0 !important; }
+    .spec:last-child{ border-bottom:none; }
+  }
+
+  footer{
+    border-top:1px solid var(--panel-line);
+    padding: 32px 0 48px;
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    * { transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crop tl"></div>
+<div class="crop tr"></div>
+<div class="crop bl"></div>
+<div class="crop br"></div>
+
+<header>
+  <div class="wrap nav">
+    <div class="nav-id">WO—<b>2026</b> / mechatronics</div>
+    <ul class="nav-links">
+      <li><a href="#background">Background</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-tag">Currently building</div>
+  <h1>William<br>O'<span class="last">Connell</span></h1>
+  <div class="hero-role">Mechatronics Engineering Student</div>
+  <p class="hero-bio">
+    <strong>Mechatronics Engineering student</strong> with a passion for leading technical development in motorsport, aquatic/automotive innovation, and intelligent systems. I've built projects such as a functional wind tunnel from scratch, showcasing strengths in electronics, prototyping, and multidisciplinary engineering. I thrive in fast-paced, technical environments and bring a mix of creativity, precision, and hands-on execution to every project.
+  </p>
+  <div class="hero-actions">
+    <a href="#work" class="btn btn-primary">View projects</a>
+    <a href="william-oconnell-resume.pdf" class="btn btn-ghost" download>
+      Download resume
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+    </a>
+    <a href="mailto:williamoconnell2006@gmail.com" class="btn btn-ghost">Get in touch</a>
+  </div>
+</section>
+
+<section class="section wrap" id="background">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <span class="section-title">Background</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="bg-grid">
+    <div class="bg-col">
+      <div class="bg-col-label">Education</div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">Bachelor of Engineering, Mechatronics</span>
+          <span class="bg-entry-date">2025—Present</span>
+        </div>
+        <div class="bg-entry-sub">University of Auckland</div>
+        <div class="bg-entry-detail">First year completed with a GPA of 8.0</div>
+      </div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">NCEA Level 3</span>
+          <span class="bg-entry-date">2018—2024</span>
+        </div>
+        <div class="bg-entry-sub">Sacred Heart College, Auckland</div>
+        <div class="bg-entry-detail">Achieved with Excellence</div>
+      </div>
+    </div>
+    <div class="bg-col">
+      <div class="bg-col-label">Awards</div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">SolveIt Finalist</span>
+          <span class="bg-entry-date">2025</span>
+        </div>
+        <div class="bg-entry-detail">Entrepreneurial team project — won the Eden Park project using IoT for wayfinding</div>
+      </div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">UoA 140th Anniversary Scholarship</span>
+          <span class="bg-entry-date">2025</span>
+        </div>
+        <div class="bg-entry-sub">University of Auckland</div>
+      </div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">NCEA Scholarship Award</span>
+          <span class="bg-entry-date">2024</span>
+        </div>
+      </div>
+      <div class="bg-entry">
+        <div class="bg-entry-top">
+          <span class="bg-entry-title">Proxime Accessit</span>
+          <span class="bg-entry-date">2024</span>
+        </div>
+        <div class="bg-entry-sub">Sacred Heart College</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="work">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <span class="section-title">Selected work</span>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="project">
+    <div class="project-top">
+      <div class="project-title">Wind Tunnel</div>
+      <div class="status complete">Complete</div>
+    </div>
+    <p class="project-desc">
+      Designed and manufactured a desktop wind tunnel capable of testing airflow around objects, with a PID controller delivering precise, repeatable windspeed.
+    </p>
+
+    <div class="tech-details">
+      <p>
+        Windspeed is measured via a differential pressure sensor connected to a pitot tube, with air density (ρ) calculated in real time from a BME280 environmental sensor to convert the pressure reading into an accurate velocity figure. An ESP32 runs the control loop, comparing this measured velocity against a user-defined target windspeed (set over serial) and using the error as feedback for a PID algorithm that adjusts a MOSFET-driven 12V PC fan to hold the target. Power draw is monitored with an INA219 sensor, and the system runs an automatic zero-flow calibration on startup to cancel out sensor offset. The housing and test chamber were hand-cut from plywood and acrylic and designed in Fusion 360, assembled with brackets, nuts, and bolts over roughly two months.
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag">ESP32</span>
+        <span class="tech-tag">PID control</span>
+        <span class="tech-tag">Pitot tube</span>
+        <span class="tech-tag">BME280</span>
+        <span class="tech-tag">INA219</span>
+        <span class="tech-tag">MOSFET switching</span>
+        <span class="tech-tag">Fusion 360</span>
+      </div>
+    </div>
+    <div class="specs">
+      <div class="spec">
+        <div class="spec-val">10 m/s</div>
+        <div class="spec-label">Max airflow</div>
+      </div>
+      <div class="spec">
+        <div class="spec-val">520 cm²</div>
+        <div class="spec-label">Test area</div>
+      </div>
+      <div class="spec">
+        <div class="spec-val">PID</div>
+        <div class="spec-label">Speed control</div>
+      </div>
+    </div>
+    <div class="project-foot">
+      <a class="project-link" href="https://drive.google.com/drive/folders/1FKCONoKBY-_kNqHIsoBqej1ngiC2nkYi?usp=drive_link" target="_blank" rel="noopener noreferrer">
+        View project files
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+      <a class="project-link" href="wind-tunnel-controller.ino" download>
+        View PID controller code
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+      </a>
+    </div>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="media/wind-tunnel-1.jpg" alt="Wind tunnel test chamber and fan housing mid-assembly, showing plywood construction and acrylic viewing panel">
+      </div>
+      <div class="gallery-item">
+        <img src="media/wind-tunnel-2.jpg" alt="Fan housing with cooling fan mounted and wired to breadboard electronics">
+      </div>
+      <div class="gallery-item gallery-item-wide">
+        <video controls preload="metadata" playsinline>
+          <source src="media/wind-tunnel-demo-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-item gallery-item-wide">
+        <video controls preload="metadata" playsinline>
+          <source src="media/wind-tunnel-demo-2.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-top">
+      <div class="project-title">ESD Community Project — Automated Irrigation System</div>
+      <div class="status progress">In progress</div>
+    </div>
+    <p class="project-desc">
+      Leading the physical design of an automated irrigation system, balancing water efficiency, component life cycle, and sustainability alongside the physical pipe layout.
+    </p>
+    <div class="project-foot">
+      <span class="project-link disabled">Write-up coming soon</span>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="skills">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <span class="section-title">Skills &amp; tools</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-row">
+      <span class="skill-label">CAD</span>
+      <span class="skill-tags"><span class="tag">CAD modelling</span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Simulation</span>
+      <span class="skill-tags"><span class="tag">Aerodynamics</span><span class="tag">CFD exposure</span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Programming</span>
+      <span class="skill-tags"><span class="tag">MATLAB</span><span class="tag">C</span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Embedded</span>
+      <span class="skill-tags"><span class="tag">Embedded Systems</span></span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Collaboration</span>
+      <span class="skill-tags"><span class="tag">Cross-disciplinary teams</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="contact">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <span class="section-title">Contact</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-cell">
+      <div class="contact-label">Email</div>
+      <a class="contact-value link" href="mailto:williamoconnell2006@gmail.com">williamoconnell2006@gmail.com</a>
+    </div>
+    <div class="contact-cell">
+      <div class="contact-label">LinkedIn</div>
+      <a class="contact-value link" href="https://www.linkedin.com/in/william-o-connell-4178342a4" target="_blank" rel="noopener noreferrer">linkedin.com/in/william-o-connell</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 William O'Connell</span>
+  <span>Built with HTML / CSS</span>
+</footer>
+
+</body>
+</html>
