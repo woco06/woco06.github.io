@@ -292,9 +292,9 @@
   .gallery-item img{
     width:100%; height:100%; object-fit:cover; display:block;
   }
-  .gallery-item-wide{ aspect-ratio: 16/9; }
+  .gallery-item-wide{ aspect-ratio: 9/16; }
   .gallery-item video{
-    width:100%; height:100%; object-fit:cover; display:block; background:#000;
+    width:100%; height:100%; object-fit:contain; display:block; background:#000;
   }
   @media (max-width:560px){
     .gallery{ grid-template-columns:1fr; }
