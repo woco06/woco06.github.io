@@ -296,8 +296,19 @@
   .gallery-item video{
     width:100%; height:100%; object-fit:contain; display:block; background:#000;
   }
+  .gallery-3col{ grid-template-columns: repeat(3, 1fr); }
+  .cfd-item{ position:relative; aspect-ratio: 4/3; }
+  .cfd-item img{ object-fit:cover; }
+  .cfd-caption{
+    position:absolute; bottom:0; left:0; right:0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    color:var(--ink); font-family:var(--mono); font-size:11px;
+    letter-spacing:0.04em; text-transform:uppercase;
+    padding: 20px 10px 8px;
+  }
   @media (max-width:560px){
     .gallery{ grid-template-columns:1fr; }
+    .gallery-3col{ grid-template-columns:1fr; }
   }
 
   /* ---------- contact ---------- */
@@ -521,7 +532,54 @@
     <div class="project-foot">
       <span class="project-link disabled">Write-up coming soon</span>
     </div>
+  </div>  <div class="project">
+    <div class="project-top">
+      <div class="project-title">Rear Wing CFD Analysis</div>
+      <div class="status complete">Complete</div>
+    </div>
+    <p class="project-desc">
+      Modelled a rear wing — a basic airfoil profile mounted between two endplates — and ran a CFD sweep in Ansys Discovery to find the optimal angle of attack, balancing velocity, pressure drop, and the onset of vortex formation.
+    </p>
+    <div class="tech-details">
+      <p>
+        Simulated at a freestream velocity of 20 m/s across a range of angles of attack. Velocity peaked around 15°, with max pressure drop continuing to rise slightly beyond that point up to 25°, but past 15° the flow began forming vortices, so 15° was taken as the practical optimum rather than chasing peak pressure drop alone. At the tested extremes, the wing produced a max velocity of 35.5 m/s and a max pressure drop of 17.4 Pa at 25°.
+      </p>
+      <div class="tech-tags">
+        <span class="tech-tag">Ansys Discovery</span>
+        <span class="tech-tag">CFD</span>
+        <span class="tech-tag">Aerodynamics</span>
+      </div>
+    </div>
+    <div class="specs">
+      <div class="spec">
+        <div class="spec-val">15°</div>
+        <div class="spec-label">Optimal AOA</div>
+      </div>
+      <div class="spec">
+        <div class="spec-val">20 m/s</div>
+        <div class="spec-label">Test velocity</div>
+      </div>
+      <div class="spec">
+        <div class="spec-val">17.4 Pa</div>
+        <div class="spec-label">Max pressure drop (25°)</div>
+      </div>
+    </div>
+    <div class="gallery gallery-3col">
+      <div class="gallery-item cfd-item">
+        <img src="media/cfd-wing-15deg.jpg" alt="CFD streamline visualization of rear wing at 15 degrees angle of attack, optimal case">
+        <div class="cfd-caption">15° — optimal</div>
+      </div>
+      <div class="gallery-item cfd-item">
+        <img src="media/cfd-wing-25deg.jpg" alt="CFD streamline visualization of rear wing at 25 degrees angle of attack, max pressure drop">
+        <div class="cfd-caption">25° — max pressure drop</div>
+      </div>
+      <div class="gallery-item cfd-item">
+        <img src="media/cfd-wing-30deg.jpg" alt="CFD streamline visualization of rear wing at 30 degrees angle of attack, showing vortex formation">
+        <div class="cfd-caption">30° — vortex formation</div>
+      </div>
+    </div>
   </div>
+
 </section>
 
 <section class="section wrap" id="skills">
